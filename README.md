@@ -27,3 +27,7 @@ ionic start <nome_app>
 ionic serve
 
 npm install -g ionic cordova
+
+## Library AngularFirebase
+
+npm install firebase @angular/fire --save
