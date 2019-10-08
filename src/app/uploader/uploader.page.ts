@@ -7,6 +7,8 @@ import { Http } from '@angular/http';
 })
 export class UploaderPage implements OnInit {
 
+  imageURL: string;
+
   // construtor para upload de imagem, utiliza uploadcare.com
   constructor(public http: Http) { }
 
@@ -15,11 +17,17 @@ export class UploaderPage implements OnInit {
 
   fileChanged(event) {
     const files = event.target.files;
-    console.log(files);
+    // console.log(files);
+
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('UPLOADCARE_STORE', '1');
+    data.append('UPLOADCARE_PUB_KEY', '05f29ba98127eb64006f');
 
     this.http.post('https://upload.uploadcare.com/base/', data)
     .subscribe(event => {
       console.log(event);
+      this.imageURL = event.json().file;
     });
   }
 

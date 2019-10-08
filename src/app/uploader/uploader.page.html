@@ -8,4 +8,7 @@
   <div class="camera"></div>
   <!-- chama função localizada em uploader/uploader.page.ts -->
   <input type="file" (change)="fileChanged($event)" />
+
+  <!-- valor vem de uploader.page.ts -->
+  <img *ngIf="imageURL" src="https://ucarecdn.com/{{ imageURL }}/" />
 </ion-content>
