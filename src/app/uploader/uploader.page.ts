@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Http } from '@angular/http';
 @Component({
   selector: 'app-uploader',
   templateUrl: './uploader.page.html',
@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploaderPage implements OnInit {
 
-  constructor() { }
+  // construtor para upload de imagem, utiliza uploadcare.com
+  constructor(public http: Http) { }
 
   ngOnInit() {
+  }
+
+  fileChanged(event) {
+    const files = event.target.files;
+    console.log(files);
+
+    this.http.post('https://upload.uploadcare.com/base/', data)
+    .subscribe(event => {
+      console.log(event);
+    });
   }
 
 }

@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>uploader</ion-title>
+    <ion-title>Upload Image</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+  <div class="camera"></div>
+  <!-- chama função localizada em uploader/uploader.page.ts -->
+  <input type="file" (change)="fileChanged($event)" />
 </ion-content>
