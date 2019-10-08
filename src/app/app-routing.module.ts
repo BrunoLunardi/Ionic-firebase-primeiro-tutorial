@@ -4,12 +4,14 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   // { path: '', redirectTo: 'home', pathMatch: 'full' },
   // redireciona para esta rota quando inicia aplicativo
-  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: '', redirectTo: 'tabs', pathMatch: 'full' },
   // { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
 ];
+
+// localhost/tabs
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
