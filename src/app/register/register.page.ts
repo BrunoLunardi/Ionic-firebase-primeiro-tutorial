@@ -54,7 +54,7 @@ export class RegisterPage implements OnInit {
       const res = await this.afAuth.auth.createUserWithEmailAndPassword(username + '@codedamn.com', password);
       // console.log(res);
 
-      // define a colection que será utilizada do Cloud Firestone do Firebase
+      // define a colection que será utilizada do Cloud Firestore do Firebase
       this.afstore.doc(`users/${res.user.uid}`).set({
         username
       });
