@@ -20,8 +20,10 @@ export class UploaderPage implements OnInit {
     // console.log(files);
 
     const data = new FormData();
+    // Configurações para upload de arquivos
     data.append('file', files[0]);
     data.append('UPLOADCARE_STORE', '1');
+    // KEY do site uploadcare
     data.append('UPLOADCARE_PUB_KEY', '05f29ba98127eb64006f');
 
     this.http.post('https://upload.uploadcare.com/base/', data)

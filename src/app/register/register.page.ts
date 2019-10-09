@@ -4,6 +4,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+// import para usar Firestone do Firebase
+import { AngularFirestore } from '@angular/fire/firestore';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -20,11 +23,22 @@ export class RegisterPage implements OnInit {
   // construtor com autenticação para firebase
   constructor(
     public afAuth: AngularFireAuth,
-    public alert: AlertController,
-    public router: Router
+    public afstore: AngularFirestore,
+    public user: UserService,
+    public alertController: AlertController,
+    public router: Router,
     ) { }
 
   ngOnInit() {
+  }
+  async presentAlert(title: string, content: string) {
+    const alert = await this.alertController.create({
+      header: title,
+      message: content,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   // método para inserir usuário no sistema
@@ -38,8 +52,22 @@ export class RegisterPage implements OnInit {
     try {
       // cria usuário com email e senha
       const res = await this.afAuth.auth.createUserWithEmailAndPassword(username + '@codedamn.com', password);
-      console.log(res);
-      this.showAlert('Success!', 'Welcome aboard!');
+      // console.log(res);
+
+      // define a colection que será utilizada do Cloud Firestone do Firebase
+      this.afstore.doc(`users/${res.user.uid}`).set({
+        username
+      });
+
+      // setUser está em user.service.ts
+      this.user.setUser({
+          username,
+          uid: res.user.uid
+        });
+
+      this.presentAlert('Success', 'You are registered');
+
+      // this.showAlert('Success!', 'Welcome aboard!');
       // redireciona para a página de tabs após registrar usuário
       this.router.navigate(['/tabs']);
     } catch (error) {
@@ -48,6 +76,7 @@ export class RegisterPage implements OnInit {
     }
   }
 
+ /*
   // método para exibir alerts
   async showAlert(header: string, message: string) {
     const alert = await this.alert.create({
@@ -59,5 +88,6 @@ export class RegisterPage implements OnInit {
     await alert.present();
 
   }
+*/
 
 }
